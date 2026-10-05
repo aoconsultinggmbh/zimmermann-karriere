@@ -174,9 +174,16 @@ window.AO_EINWILLIGUNG = {
     </div>
   </section>
 
-  <section class="abschnitt--eng" aria-label="Einblicke in die Praxis">
+  <section class="abschnitt--eng" id="einblicke" aria-labelledby="einblicke-titel">
     <div class="inhalt">
-      <div class="galerie" id="galerie"></div>
+      <div class="zeile-kopf">
+        <h2 id="einblicke-titel">Einblicke in die Praxis</h2>
+        <div class="pfeile">
+          <button type="button" class="pfeil" data-richtung="-1" aria-label="Vorherige Bilder">‹</button>
+          <button type="button" class="pfeil" data-richtung="1" aria-label="Nächste Bilder">›</button>
+        </div>
+      </div>
+      <div class="schiene" id="galerie" tabindex="0" aria-label="Bildergalerie, mit den Pfeiltasten blättern"></div>
     </div>
   </section>
 

@@ -256,6 +256,14 @@
     var g = $('#galerie'); if (!g) return;
     g.innerHTML = GALERIE.map(function (b) { return '<a href="img/' + b[0] + '.jpg" aria-label="' + esc(b[1]) + ', Bild vergrößern">' + bild(b[0], b[1]) + '</a>'; }).join('');
     $$('a', g).forEach(function (a) { a.addEventListener('click', function (e) { e.preventDefault(); lightbox(a); }); });
+    /* Pfeile und Pfeiltasten: blättern wie auf der Hauptseite */
+    function schritt() { return g.firstElementChild ? g.firstElementChild.getBoundingClientRect().width + 14 : 300; }
+    $$('.pfeil').forEach(function (p) {
+      p.addEventListener('click', function () { g.scrollBy({ left: schritt() * (+p.getAttribute('data-richtung')) * 2, behavior: 'smooth' }); });
+    });
+    g.addEventListener('keydown', function (e) {
+      if (e.key === 'ArrowRight' || e.key === 'ArrowLeft') { e.preventDefault(); g.scrollBy({ left: e.key === 'ArrowRight' ? schritt() : -schritt(), behavior: 'smooth' }); }
+    });
   }
   function lightbox(a) {
     var dlg = document.createElement('dialog'); dlg.className = 'lb';

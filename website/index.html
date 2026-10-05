@@ -179,13 +179,18 @@ strong{font-weight:600}
 .zwei .bild img{width:100%;aspect-ratio:4/5;object-fit:cover;object-position:50% 30%}
 @media (max-width:900px){.zwei{grid-template-columns:1fr;gap:32px}.zwei--umgekehrt>*:first-child{order:0}.zwei .bild img{aspect-ratio:4/3}}
 
-/* Praxiseinblicke: Raster wie Divi-Galerie, 6 Spalten */
-.galerie{display:grid;grid-template-columns:repeat(6,1fr);gap:10px}
-.galerie img{width:100%;aspect-ratio:3/2;object-fit:cover;object-position:50% 30%;transition:transform .3s}
-.galerie a{display:block;overflow:hidden}
-.galerie a:hover img{transform:scale(1.04)}
-@media (max-width:1024px){.galerie{grid-template-columns:repeat(4,1fr)}}
-@media (max-width:640px){.galerie{grid-template-columns:repeat(2,1fr)}}
+/* Praxiseinblicke: Schieber wie auf der Hauptseite (4 Bilder, Pfeile, Wischen) */
+.zeile-kopf{display:flex;justify-content:space-between;align-items:center;gap:20px;margin-bottom:22px}
+.zeile-kopf h2{margin:0}
+.pfeile{display:flex;gap:8px;flex-shrink:0}
+.pfeil{width:44px;height:44px;border-radius:50%;border:1px solid var(--linie);background:#fff;color:var(--slate);font-size:1.4rem;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;line-height:1}
+.pfeil:hover{background:var(--slate);color:#fff}
+.schiene{display:grid;grid-auto-flow:column;grid-auto-columns:calc((100% - 3*14px)/4);gap:14px;overflow-x:auto;scroll-snap-type:x mandatory;scroll-behavior:smooth;padding-bottom:6px;scrollbar-width:thin}
+.schiene a{display:block;overflow:hidden;scroll-snap-align:start;box-shadow:var(--schatten)}
+.schiene img{width:100%;aspect-ratio:3/2;object-fit:cover;object-position:50% 30%;transition:transform .3s}
+.schiene a:hover img{transform:scale(1.04)}
+@media (max-width:1024px){.schiene{grid-auto-columns:calc((100% - 2*14px)/3)}}
+@media (max-width:640px){.schiene{grid-auto-columns:82%}}
 
 /* Benefit-Karten im Stil der Behandlungsschwerpunkte */
 .raster-3{display:grid;grid-template-columns:repeat(3,1fr);gap:28px}
@@ -684,9 +689,16 @@ window.AO_EINWILLIGUNG = {
     </div>
   </section>
 
-  <section class="abschnitt--eng" aria-label="Einblicke in die Praxis">
+  <section class="abschnitt--eng" id="einblicke" aria-labelledby="einblicke-titel">
     <div class="inhalt">
-      <div class="galerie" id="galerie"></div>
+      <div class="zeile-kopf">
+        <h2 id="einblicke-titel">Einblicke in die Praxis</h2>
+        <div class="pfeile">
+          <button type="button" class="pfeil" data-richtung="-1" aria-label="Vorherige Bilder">‹</button>
+          <button type="button" class="pfeil" data-richtung="1" aria-label="Nächste Bilder">›</button>
+        </div>
+      </div>
+      <div class="schiene" id="galerie" tabindex="0" aria-label="Bildergalerie, mit den Pfeiltasten blättern"></div>
     </div>
   </section>
 
@@ -1317,6 +1329,14 @@ window.AO_EINWILLIGUNG = {
     var g = $('#galerie'); if (!g) return;
     g.innerHTML = GALERIE.map(function (b) { return '<a href="img/' + b[0] + '.jpg" aria-label="' + esc(b[1]) + ', Bild vergrößern">' + bild(b[0], b[1]) + '</a>'; }).join('');
     $$('a', g).forEach(function (a) { a.addEventListener('click', function (e) { e.preventDefault(); lightbox(a); }); });
+    /* Pfeile und Pfeiltasten: blättern wie auf der Hauptseite */
+    function schritt() { return g.firstElementChild ? g.firstElementChild.getBoundingClientRect().width + 14 : 300; }
+    $$('.pfeil').forEach(function (p) {
+      p.addEventListener('click', function () { g.scrollBy({ left: schritt() * (+p.getAttribute('data-richtung')) * 2, behavior: 'smooth' }); });
+    });
+    g.addEventListener('keydown', function (e) {
+      if (e.key === 'ArrowRight' || e.key === 'ArrowLeft') { e.preventDefault(); g.scrollBy({ left: e.key === 'ArrowRight' ? schritt() : -schritt(), behavior: 'smooth' }); }
+    });
   }
   function lightbox(a) {
     var dlg = document.createElement('dialog'); dlg.className = 'lb';
