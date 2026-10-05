@@ -419,7 +419,7 @@ h1,h2,h3,h4,.blurb p,.karte p,.stelle h2,.stelle h3,.arzt p,.schritt p{overflow-
 
 /* ============================================================
    Anpassungen 05.10.2026 (Awan Tofik), gelten für Hauptseite und Karriereseite:
-   1. Inhaltsbreite 1300 px
+   1. Inhaltsbreite 1400 px (05.10. nachmittags von 1300 auf 1400)
    2. Feste Schriftstufen für Desktop (ab 1024), Tablet (768–1023) und Handy (bis 767)
       statt gleitender Größen – H1 bis H6, Absatz, Kleintext, Kartentitel
    3. Hero: Text unten im Bild, Gesichter bleiben frei (Bild oben beschnitten statt mittig)
@@ -427,7 +427,7 @@ h1,h2,h3,h4,.blurb p,.karte p,.stelle h2,.stelle h3,.arzt p,.schritt p{overflow-
    5. Keine automatische Silbentrennung in Überschriften (trennte „Zahnme-dizin")
    ============================================================ */
 :root{
-  --inhalt:1300px;
+  --inhalt:1400px;
   --h1:56px;--h2:40px;--h3:28px;--h4:22px;--h5:19px;--h6:17px;
   --p:17px;--klein:16px;--kartentitel:24px;
 }
