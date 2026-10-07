@@ -985,13 +985,13 @@ window.AO_EINWILLIGUNG = {
 
 <h2>5. Analyse-Tools und Werbung</h2>
 <h3>Matomo</h3>
-<p>Diese Website benutzt den Open-Source-Webanalysedienst Matomo. Matomo wird <mark class="offen">auf einem eigenen Server bzw. bei einem Hoster in Deutschland</mark> betrieben; eine Übertragung an den Hersteller findet nicht statt.</p>
+<p>Diese Website benutzt den Open-Source-Webanalysedienst Matomo. Matomo wird auf einem Server in Deutschland betrieben; eine Übertragung an den Hersteller findet nicht statt.</p>
 <p>Mit Hilfe von Matomo sind wir in der Lage, Daten über die Nutzung unserer Website durch die Websitebesucher zu erfassen und zu analysieren. Hierdurch können wir u. a. herausfinden, wann welche Seitenaufrufe getätigt wurden, welche Stellenanzeigen geöffnet wurden und aus welcher Region sie kommen. Außerdem erfassen wir verschiedene Logdateien (z. B. IP-Adresse, Referrer, verwendete Browser und Betriebssysteme) und können messen, ob unsere Websitebesucher bestimmte Aktionen durchführen (z. B. Klick auf den Bewerbungsknopf).</p>
 <p>Die Nutzung dieses Analyse-Tools erfolgt ausschließlich auf Grundlage Ihrer Einwilligung nach Art. 6 Abs. 1 lit. a DSGVO und § 25 Abs. 1 TDDDG. Vor Ihrer Entscheidung im Einwilligungsfenster wird kein Matomo-Skript geladen. Die Einwilligung ist jederzeit widerrufbar.</p>
 <h4>IP-Anonymisierung</h4>
-<p>Bei der Analyse mit Matomo setzen wir IP-Anonymisierung ein. Hierbei wird Ihre IP-Adresse vor der Analyse gekürzt, sodass Sie Ihnen nicht mehr eindeutig zuordenbar ist.</p>
+<p>Bei der Analyse mit Matomo setzen wir IP-Anonymisierung ein. Hierbei wird Ihre IP-Adresse vor der Analyse gekürzt, sodass sie Ihnen nicht mehr eindeutig zuordenbar ist. Gekürzt werden die letzten zwei Bytes. Matomo setzt dabei keine Cookies. Wenn Sie in Ihrem Browser „Do Not Track“ aktivieren, werden Sie nicht gezählt. Die erhobenen Daten werden nach zwölf Monaten gelöscht.</p>
 <h4>Hosting</h4>
-<p>Wir hosten Matomo <mark class="offen">ausschließlich auf eigenen Servern bzw. bei folgendem Anbieter: (Anbieter, Anschrift)</mark>, sodass alle Analysedaten bei uns verbleiben und nicht weitergegeben werden.</p>
+<p>Wir hosten Matomo bei der AO Consulting GmbH, Zeiloch 13, 76646 Bruchsal, die Matomo in unserem Auftrag betreibt. Der Server steht bei der ALL-INKL.COM – Neue Medien Münnich, Hauptstraße 68, 02742 Friedersdorf, sodass alle Analysedaten bei uns verbleiben und nicht weitergegeben werden.</p>
 
 <h2>6. Plugins und Tools</h2>
 <h3>Schriften</h3>
@@ -1077,8 +1077,8 @@ window.AO_EINWILLIGUNG = {
   var D = window.STELLEN || { stellen: [], arbeitgeber: {} };
   var AG = D.arbeitgeber || {};
   var BASIS = 'https://karriere.zahnaerzte-edenkoben.de/';   // Canonical, vor Livegang prüfen
-  var MATOMO_URL = '';      // z. B. 'https://matomo.ao-consult.de/' (mit Schrägstrich am Ende). Leer = kein Tracking.
-  var MATOMO_SITE_ID = '';  // z. B. '12'
+  var MATOMO_URL = 'https://statistik.ao-consult.de/';      // z. B. 'https://matomo.ao-consult.de/' (mit Schrägstrich am Ende). Leer = kein Tracking.
+  var MATOMO_SITE_ID = '18';  // z. B. '12'
 
   function $(s, r) { return (r || document).querySelector(s); }
   function $$(s, r) { return Array.prototype.slice.call((r || document).querySelectorAll(s)); }
@@ -1400,7 +1400,7 @@ window.AO_EINWILLIGUNG = {
     if (!MATOMO_URL || !MATOMO_SITE_ID || matomoGeladen || !e || !e.entschieden() || !e.erlaubt('statistik')) return;
     matomoGeladen = true;
     var _paq = window._paq = window._paq || [];
-    _paq.push(['disableCookies']); _paq.push(['trackPageView']); _paq.push(['enableLinkTracking']);
+    _paq.push(['disableCookies']); _paq.push(['setDoNotTrack', true]); _paq.push(['trackPageView']); _paq.push(['enableLinkTracking']);
     _paq.push(['setTrackerUrl', MATOMO_URL + 'matomo.php']); _paq.push(['setSiteId', MATOMO_SITE_ID]);
     var g = document.createElement('script'); g.async = true; g.src = MATOMO_URL + 'matomo.js'; document.head.appendChild(g);
   }
